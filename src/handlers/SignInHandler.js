@@ -1,6 +1,6 @@
 import User from '../models/User.js'; // Import the User model
 
-export const signIn = async (req, res, next) => {
+export const SignInHandler = async (req, res, next) => {
     try {
         // Extract user details from the request body
         const { email, firstName, lastName, password, image, signIn } = req.body;
@@ -22,3 +22,5 @@ export const signIn = async (req, res, next) => {
         res.status(500).send({ error: 'Failed to create user' });
     }
 };
+
+export { SignInHandler }

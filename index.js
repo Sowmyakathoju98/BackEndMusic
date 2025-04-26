@@ -10,11 +10,10 @@ app.use(express.json());
 app.use(function (req, res, next) {
     next();
 });
+
 app.use("/userDetails", routes);
 
-app.use("/", (req, res, next) => {
-    signIn(req, res, next);
-});
+
 // const dbCon = () => {
 //     try {
 //         initializeDb();
@@ -26,9 +25,9 @@ app.use("/", (req, res, next) => {
 //         console.log(e);
 //     }
 // }
-try{
+try {
     initializeMongoDb();
-} catch(e){
+} catch (e) {
     console.log('failed to connect to db',);
 }
 
