@@ -1,26 +1,22 @@
 import User from '../models/User.js'; // Import the User model
+import { signIn } from '../controllers/SignInMongoController.js'; // Import the signIn function
 
-export const SignInHandler = async (req, res, next) => {
+const SignInHandler = async (req, res, next) => {
     try {
-        // Extract user details from the request body
-        const { email, firstName, lastName, password, image, signIn } = req.body;
+        // Check if the user exists
+        const user = await User.findOne({ email: req.body.email });
 
-        // Insert the user into MongoDB
-        const newUser = await User.create({
-            email,
-            firstName,
-            lastName,
-            password,
-            image,
-            signIn,
-        });
-        // newUser.save();
-        // Respond with success
-        res.status(201).send({ message: 'User created successfully', user: newUser });
+        if (user) {
+            // User exists, return success response
+            return res.status(200).json({ message: 'Sign in successful', user });
+        } else {
+            // User does not exist, call the signIn function to create a new user
+            await signIn(req, res, next);
+        }
     } catch (error) {
-        console.error(error);
-        res.status(500).send({ error: 'Failed to create user' });
+        console.error('Error in SignInHandler:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 };
 
-export { SignInHandler }
+export default SignInHandler;

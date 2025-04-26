@@ -8,8 +8,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String }, // Equivalent to PASSWORD
     image: { type: Buffer }, // Equivalent to IMAGE
     signIn: { type: Boolean, default: false },
-
-});
+},{ versionKey: false });
 
 const User = mongoose.model('User', userSchema);
 
