@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const routes = require('./src/routes/Routes');
+const routes = require('./src/routes/UserRoute');
 const { initializeMongoDb } = require('./src/util/mongoDbConnection');
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 app.use("/userDetails", routes);
 
 try {
