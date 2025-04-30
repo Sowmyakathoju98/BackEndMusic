@@ -3,9 +3,11 @@ const cors = require('cors');
 const app = express();
 const routes = require('./src/routes/UserRoute');
 const { initializeMongoDb } = require('./src/util/mongoDbConnection');
+const roomRouter = require('./src/routes/RoomRoute');
 app.use(cors());
 app.use(express.json());
 app.use("/userDetails", routes);
+app.use("/roomDetails", roomRouter);
 
 try {
     initializeMongoDb();
